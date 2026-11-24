@@ -1,0 +1,18 @@
+# Hugo
+public/
+resources/
+.hugo_build.lock
+
+# Node
+node_modules/
+
+# CSS hasil build Tailwind (dibuat oleh `npm run build` / `npm start`)
+themes/starter/assets/css/output.css
+
+# Font self-host: disalin dari node_modules oleh scripts/fonts.mjs
+themes/starter/assets/fonts/*.woff2
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

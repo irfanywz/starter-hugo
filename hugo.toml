@@ -1,0 +1,120 @@
+# ======================================================================
+# Konfigurasi situs. Ganti nilai di bawah sesuai kebutuhan.
+# ======================================================================
+baseURL = "https://example.github.io/"
+title = "Starter Hugo"
+theme = "starter"
+
+# Situs satu bahasa (Indonesia). Tanggal otomatis memakai nama bulan/hari Indonesia.
+defaultContentLanguage = "id"
+
+enableRobotsTXT = true
+enableEmoji = true
+# Aktifkan jika repo ini sudah berupa git repo (dipakai untuk tanggal "diperbarui").
+enableGitInfo = false
+
+pagination.pagerSize = 6
+
+[languages.id]
+  label = "Indonesia"
+  locale = "id"
+  weight = 1
+
+[params]
+  # Dipakai untuk meta description halaman beranda dan fallback halaman lain.
+  description = "Starter Hugo dengan Tailwind CSS v4 dan Alpine.js"
+  # Opsional: <meta name="author">
+  author = ""
+  # Gambar default og:image / twitter:image (path dari static/ atau URL penuh).
+  # Ukuran ideal 1200x630. Ganti file static/og-default.png dengan milikmu.
+  image = "og-default.png"
+
+  # Pencarian (Pagefind). Indeks dibuat setelah build: otomatis di CI dan `npm run preview`.
+  search = true
+
+  # Analytics: isi salah satu untuk mengaktifkan. Hanya aktif saat build production.
+  [params.analytics]
+    plausibleDomain = ""      # mis. "contoh.com"
+    plausibleSrc = ""         # opsional, untuk Plausible self-host
+    umamiWebsiteId = ""
+    umamiSrc = ""             # opsional, default https://cloud.umami.is/script.js
+    gaMeasurementId = ""      # mis. "G-XXXXXXXXXX"
+
+  # Komentar (giscus, memakai GitHub Discussions). Isi dari https://giscus.app
+  # Aktif jika repo, repoId, dan categoryId terisi. Matikan per halaman: comments = false
+  [params.comments.giscus]
+    repo = ""                 # "namamu/nama-repo"
+    repoId = ""
+    category = "Announcements"
+    categoryId = ""
+    mapping = "pathname"
+    lang = ""                 # kosong = bahasa situs
+
+# ----------------------------------------------------------------------
+# Menu header. `pre` = class icon (Iconify), mis. icon-[ri--home-line].
+# Cari ikon di https://icon-sets.iconify.design (set terpasang: ri, lucide).
+# ----------------------------------------------------------------------
+[[menus.main]]
+  name = "Beranda"
+  url = "/"
+  pre = "icon-[ri--home-line]"
+  weight = 10
+
+[[menus.main]]
+  name = "Artikel"
+  url = "/posts/"
+  pre = "icon-[ri--article-line]"
+  weight = 20
+
+[[menus.main]]
+  name = "Topik"
+  url = "/topics/"
+  pre = "icon-[ri--hashtag]"
+  weight = 30
+
+[[menus.main]]
+  name = "Tentang"
+  url = "/about/"
+  pre = "icon-[lucide--user-round]"
+  weight = 40
+
+# Menu footer
+[[menus.footer]]
+  name = "Tentang"
+  url = "/about/"
+  weight = 10
+
+[[menus.footer]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 20
+
+[taxonomies]
+  topic = "topics"
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    lineNos = false
+    # noClasses = true -> warna sintaks ditulis inline, tidak butuh CSS tambahan.
+    noClasses = true
+    style = "dracula"
+    tabWidth = 2
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+  [markup.goldmark.renderer]
+    # izinkan HTML mentah di dalam file .md
+    unsafe = true
+
+[privacy.youtube]
+  # shortcode bawaan {{< youtube ID >}} memakai youtube-nocookie.com
+  privacyEnhanced = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]

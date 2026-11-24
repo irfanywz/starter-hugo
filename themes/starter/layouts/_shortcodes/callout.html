@@ -1,0 +1,24 @@
+{{- /* Parameter: type (info, tip, warning, danger) dan title (opsional). Panggil dengan sintaks persen agar isinya diproses sebagai markdown. */ -}}
+{{- $type := .Get "type" | default "info" -}}
+{{- $styles := dict
+  "info" "border-blue-500 bg-blue-50 text-blue-900 dark:bg-blue-950/40 dark:text-blue-100"
+  "tip" "border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-100"
+  "warning" "border-amber-500 bg-amber-50 text-amber-900 dark:bg-amber-950/40 dark:text-amber-100"
+  "danger" "border-red-500 bg-red-50 text-red-900 dark:bg-red-950/40 dark:text-red-100"
+-}}
+{{- $icons := dict
+  "info" "icon-[lucide--info]"
+  "tip" "icon-[lucide--lightbulb]"
+  "warning" "icon-[lucide--triangle-alert]"
+  "danger" "icon-[lucide--circle-alert]"
+-}}
+{{- if not (index $styles $type) -}}
+  {{- errorf "callout: type %q tidak dikenal (pakai info, tip, warning, atau danger) di %s" $type .Position -}}
+{{- end -}}
+<aside class="my-6 flex gap-3 rounded-xl border-l-4 p-4 {{ index $styles $type }}" role="note">
+  <span class="{{ index $icons $type }} mt-1 size-5 shrink-0" aria-hidden="true"></span>
+  <div class="min-w-0 flex-1 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+    {{ with .Get "title" }}<p class="font-bold">{{ . }}</p>{{ end }}
+    {{ .Inner }}
+  </div>
+</aside>

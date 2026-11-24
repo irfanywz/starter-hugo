@@ -1,0 +1,4 @@
+<h{{ .Level }} id="{{ .Anchor | safeURL }}" class="group">
+  {{- .Text -}}
+  <a href="#{{ .Anchor | safeURL }}" data-pagefind-ignore class="ml-2 text-slate-400 no-underline opacity-0 transition-opacity hover:text-primary focus:opacity-100 group-hover:opacity-100 dark:hover:text-blue-400" aria-label="{{ i18n "anchor_link" }}">#</a>
+</h{{ .Level }}>

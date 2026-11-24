@@ -1,0 +1,14 @@
+{{- /* Font self-host. Berkas disalin dari node_modules oleh scripts/fonts.mjs. */ -}}
+{{- $sans := resources.Get "fonts/plus-jakarta-sans-latin.woff2" }}
+{{- $mono := resources.Get "fonts/fira-code-latin.woff2" }}
+{{- if and $sans $mono }}
+  {{- $sans = $sans | fingerprint }}
+  {{- $mono = $mono | fingerprint }}
+<link rel="preload" href="{{ $sans.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:200 800;font-display:swap;src:url("{{ $sans.RelPermalink }}") format("woff2")}
+  @font-face{font-family:"Fira Code";font-style:normal;font-weight:300 700;font-display:swap;src:url("{{ $mono.RelPermalink }}") format("woff2")}
+</style>
+{{- else }}
+  {{- warnf "Font belum ada di themes/starter/assets/fonts/. Jalankan `npm install` atau `node scripts/fonts.mjs`. Memakai font sistem sementara." }}
+{{- end }}

@@ -1,0 +1,14 @@
+{{- /* Konteks: dict "page" <halaman aktif> "item" <entri menu> */ -}}
+{{- $page := .page }}
+{{- $item := .item }}
+{{- $url := $item.URL | relURL }}
+{{- $active := false }}
+{{- if eq $item.URL "/" }}
+  {{- $active = $page.IsHome }}
+{{- else }}
+  {{- $active = hasPrefix $page.RelPermalink $url }}
+{{- end }}
+<a href="{{ $url }}" {{ if $active }}aria-current="page"{{ end }} class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors {{ if $active }}bg-slate-100 text-primary dark:bg-slate-800 dark:text-blue-400{{ else }}text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800{{ end }}">
+  {{- with $item.Pre }}<span class="{{ . }} size-5" aria-hidden="true"></span>{{ end -}}
+  {{ $item.Name }}
+</a>

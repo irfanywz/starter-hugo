@@ -1,0 +1,9 @@
+{{ define "main" }}
+<main id="main" class="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
+  <header class="mb-8">
+    <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose prose-slate mt-4 dark:prose-invert">{{ . }}</div>{{ end }}
+  </header>
+  {{ partial "post-list.html" (dict "page" . "pages" .RegularPages) }}
+</main>
+{{ end }}

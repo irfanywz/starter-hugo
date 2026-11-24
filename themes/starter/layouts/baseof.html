@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}">
+<head>
+  {{ partial "theme-init.html" . }}
+  {{ partial "head.html" . }}
+  {{ partialCached "css.html" . }}
+  {{ partialCached "js.html" . }}
+  {{ block "head" . }}{{ end }}
+</head>
+<body class="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased transition-colors duration-200 selection:bg-primary selection:text-white dark:bg-slate-950 dark:text-slate-100">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-white">{{ i18n "skip_to_content" }}</a>
+
+  {{ if not .Params.hideHeader }}{{ partial "header.html" . }}{{ end }}
+
+  {{ block "main" . }}{{ end }}
+
+  {{ if not .Params.hideFooter }}{{ partial "footer.html" . }}{{ end }}
+</body>
+</html>

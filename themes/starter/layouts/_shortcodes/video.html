@@ -1,0 +1,10 @@
+{{- /* Video sendiri (mp4/webm). Parameter: src (wajib; path dari static/ atau URL), poster (opsional), title (opsional, label aksesibilitas) */ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "video: parameter src wajib diisi (%s)" .Position -}}
+{{- end -}}
+{{- $abs := or (hasPrefix $src "http://") (hasPrefix $src "https://") -}}
+{{- $type := cond (strings.HasSuffix $src ".webm") "video/webm" "video/mp4" -}}
+<video class="my-6 w-full rounded-xl bg-black" controls preload="metadata" playsinline{{ with .Get "title" }} aria-label="{{ . }}"{{ end }}{{ with .Get "poster" }} poster="{{ if or (hasPrefix . "http://") (hasPrefix . "https://") }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}"{{ end }}>
+  <source src="{{ if $abs }}{{ $src }}{{ else }}{{ $src | relURL }}{{ end }}" type="{{ $type }}">
+</video>

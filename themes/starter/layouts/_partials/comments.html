@@ -1,0 +1,43 @@
+{{- /* Komentar giscus. Aktif hanya jika [params.comments.giscus] terisi, pada halaman bertanggal; matikan per halaman: comments = false */ -}}
+{{- $g := (site.Params.comments | default (dict)).giscus | default (dict) }}
+{{- $enabled := true }}
+{{- if isset .Params "comments" }}{{ $enabled = .Params.comments }}{{ end }}
+{{- if and $enabled .IsPage (not .Date.IsZero) $g.repo $g.repoid $g.categoryid }}
+  {{- $cfg := dict
+      "repo" $g.repo
+      "repo-id" $g.repoid
+      "category" ($g.category | default "Announcements")
+      "category-id" $g.categoryid
+      "mapping" ($g.mapping | default "pathname")
+      "strict" "0"
+      "reactions-enabled" "1"
+      "emit-metadata" "0"
+      "input-position" "bottom"
+      "lang" ($g.lang | default site.Language.Lang)
+      "loading" "lazy"
+  }}
+<section class="mt-12" aria-label="{{ i18n "comments_title" }}">
+  <h2 class="mb-4 text-xl font-bold">{{ i18n "comments_title" }}</h2>
+  <div id="comments" data-config='{{ $cfg | jsonify }}'></div>
+</section>
+<script>
+  (function () {
+    var el = document.getElementById('comments');
+    if (!el) return;
+    var cfg = JSON.parse(el.dataset.config);
+    var theme = function () { return document.documentElement.classList.contains('dark') ? 'dark' : 'light'; };
+    var s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    Object.keys(cfg).forEach(function (k) { s.setAttribute('data-' + k, cfg[k]); });
+    s.setAttribute('data-theme', theme());
+    el.appendChild(s);
+    // ikuti toggle tema
+    new MutationObserver(function () {
+      var frame = document.querySelector('iframe.giscus-frame');
+      if (frame) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  })();
+</script>
+{{- end }}

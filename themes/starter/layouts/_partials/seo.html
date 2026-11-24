@@ -1,0 +1,43 @@
+{{- /* Meta SEO dasar: description, canonical, robots, Open Graph, Twitter Card. */ -}}
+{{- $title := .Title }}
+{{- if .IsHome }}{{ $title = site.Title }}{{ end }}
+
+{{- $desc := site.Params.description }}
+{{- if .Description }}
+  {{- $desc = .Description }}
+{{- else if and .IsPage .Summary }}
+  {{- $desc = .Summary | plainify | truncate 160 }}
+{{- end }}
+
+{{- $image := "" }}
+{{- with .Params.image }}
+  {{- if strings.HasPrefix . "http" }}
+    {{- $image = . }}
+  {{- else }}
+    {{- with $.Resources.Get . }}
+      {{- $image = .Permalink }}
+    {{- else }}
+      {{- $image = . | absURL }}
+    {{- end }}
+  {{- end }}
+{{- else }}
+  {{- with site.Params.image }}{{ $image = . | absURL }}{{ end }}
+{{- end }}
+
+<meta name="description" content="{{ $desc }}">
+{{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+{{ with .Params.keywords }}<meta name="keywords" content="{{ if reflect.IsSlice . }}{{ delimit . ", " }}{{ else }}{{ . }}{{ end }}">{{ end }}
+{{ if or .Params.noindex (eq .Kind "404") }}<meta name="robots" content="noindex, nofollow">{{ end }}
+<link rel="canonical" href="{{ .Permalink }}">
+
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with $image }}<meta property="og:image" content="{{ . }}">{{ end }}
+
+<meta name="twitter:card" content="{{ if $image }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{ with $image }}<meta name="twitter:image" content="{{ . }}">{{ end }}

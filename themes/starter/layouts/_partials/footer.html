@@ -1,0 +1,11 @@
+<footer class="border-t border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
+  {{ with site.Menus.footer }}
+    <nav aria-label="{{ i18n "footer_menu" }}" class="mb-3 flex flex-wrap justify-center gap-x-5 gap-y-1">
+      {{ range . }}<a href="{{ .URL | relURL }}" class="hover:text-primary hover:underline dark:hover:text-blue-400">{{ .Name }}</a>{{ end }}
+    </nav>
+  {{ end }}
+  <p>
+    {{ with site.Copyright }}{{ . | markdownify }}{{ else }}&copy; {{ now.Year }} {{ site.Title }}{{ end }}
+    · {{ i18n "built_with" }}
+  </p>
+</footer>

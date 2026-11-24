@@ -1,0 +1,39 @@
+{
+  "name": "hugo-starter",
+  "version": "1.0.0",
+  "description": "Starter Hugo + Tailwind CSS v4 + Alpine.js",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "postinstall": "node scripts/fonts.mjs --soft",
+    "fonts": "node scripts/fonts.mjs",
+    "dev": "npx @tailwindcss/cli -i ./themes/starter/assets/css/input.css -o ./themes/starter/assets/css/output.css --watch",
+    "build": "node scripts/fonts.mjs --soft && npx @tailwindcss/cli -i ./themes/starter/assets/css/input.css -o ./themes/starter/assets/css/output.css --minify",
+    "start": "node scripts/dev.mjs",
+    "preview": "node scripts/preview.mjs",
+    "index": "pagefind --site public",
+    "init": "node scripts/init.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "test": "node scripts/test.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@alpinejs/collapse": "^3.16.2",
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.16",
+    "alpinejs": "^3.15.4",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@fontsource-variable/fira-code": "^5.0.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.0.0",
+    "@iconify-json/lucide": "^1.2.85",
+    "@iconify-json/ri": "^1.2.7",
+    "@iconify/tailwind4": "^1.2.1",
+    "pagefind": "^1.4.0"
+  }
+}

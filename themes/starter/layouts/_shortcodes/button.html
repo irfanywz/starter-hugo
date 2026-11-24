@@ -1,0 +1,17 @@
+{{- /* Parameter: url, text (wajib), style (primary atau outline) */ -}}
+{{- $url := .Get "url" -}}
+{{- $text := .Get "text" -}}
+{{- if not (and $url $text) -}}
+  {{- errorf "button: parameter url dan text wajib diisi (%s)" .Position -}}
+{{- end -}}
+{{- $style := .Get "style" | default "primary" -}}
+{{- $styles := dict
+  "primary" "bg-primary text-white hover:opacity-90"
+  "outline" "border border-primary text-primary hover:bg-primary hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-slate-900"
+-}}
+{{- if not (index $styles $style) -}}
+  {{- errorf "button: style %q tidak dikenal (pakai primary atau outline) di %s" $style .Position -}}
+{{- end -}}
+{{- $external := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
+{{- $raw := or $external (hasPrefix $url "#") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+<a href="{{ if $raw }}{{ $url }}{{ else }}{{ $url | relURL }}{{ end }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }} class="not-prose my-2 inline-block rounded-lg px-5 py-2.5 font-medium no-underline transition {{ index $styles $style }}">{{ $text }}</a>

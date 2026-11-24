@@ -1,0 +1,17 @@
+{{- /* Gambar: lazy-load; jika gambar ada di page bundle, width/height ditambahkan (mencegah layout shift). */ -}}
+{{- $src := .Destination -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+{{- with .PageInner.Resources.Get .Destination -}}
+  {{- $src = .RelPermalink -}}
+  {{- $width = .Width -}}
+  {{- $height = .Height -}}
+{{- end -}}
+{{- if and .IsBlock .Title -}}
+<figure>
+  <img src="{{ $src | safeURL }}" alt="{{ .PlainText }}" loading="lazy" decoding="async"{{ if $width }} width="{{ $width }}" height="{{ $height }}"{{ end }}>
+  <figcaption>{{ .Title }}</figcaption>
+</figure>
+{{- else -}}
+<img src="{{ $src | safeURL }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async"{{ if $width }} width="{{ $width }}" height="{{ $height }}"{{ end }}>
+{{- end -}}

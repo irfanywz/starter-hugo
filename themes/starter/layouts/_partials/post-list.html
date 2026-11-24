@@ -1,0 +1,10 @@
+{{- /* Konteks: dict "page" <halaman> "pages" <daftar halaman>. Memakai pagination dari hugo.toml. */ -}}
+{{ $pager := .page.Paginate .pages }}
+{{ if $pager.Pages }}
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {{ range $pager.Pages }}{{ partial "post-card.html" . }}{{ end }}
+  </div>
+  {{ partial "pagination.html" $pager }}
+{{ else }}
+  <p class="text-slate-500 dark:text-slate-400">{{ i18n "no_posts" }}</p>
+{{ end }}

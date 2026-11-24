@@ -1,0 +1,64 @@
+skip_to_content:
+  other: "Lompat ke konten"
+main_menu:
+  other: "Menu utama"
+footer_menu:
+  other: "Menu footer"
+menu:
+  other: "Menu"
+toggle_theme:
+  other: "Ganti tema terang/gelap"
+latest_posts:
+  other: "Tulisan terbaru"
+all_posts:
+  other: "Lihat semua tulisan"
+no_posts:
+  other: "Belum ada tulisan."
+read_more:
+  other: "Baca selengkapnya"
+reading_time:
+  other: "{{ .Count }} menit baca"
+topics:
+  other: "Topik"
+pagination:
+  other: "Navigasi halaman"
+newer:
+  other: "Lebih baru"
+older:
+  other: "Lebih lama"
+not_found:
+  other: "Halaman tidak ditemukan"
+back_home:
+  other: "Kembali ke beranda"
+built_with:
+  other: "Dibuat dengan Hugo & Tailwind CSS"
+toc:
+  other: "Daftar isi"
+more_posts:
+  other: "Tulisan lainnya"
+newer_post:
+  other: "Tulisan lebih baru"
+older_post:
+  other: "Tulisan lebih lama"
+anchor_link:
+  other: "Tautan ke bagian ini"
+search:
+  other: "Cari"
+search_placeholder:
+  other: "Cari di situs ini…"
+search_hint:
+  other: "Ketik untuk mulai mencari."
+search_loading:
+  other: "Mencari…"
+search_no_results:
+  other: "Tidak ada hasil."
+search_close:
+  other: "Tutup pencarian"
+search_unavailable:
+  other: "Pencarian tidak tersedia saat ini."
+search_dev_hint:
+  other: "Indeks pencarian dibuat saat build. Jalankan `npm run preview` untuk mencobanya."
+details:
+  other: "Detail"
+comments_title:
+  other: "Komentar"
